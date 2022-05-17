@@ -1,4 +1,4 @@
-const detail = () => {
+const Detail = () => {
     return (
         <div className="container">
             <div className="row">
@@ -16,4 +16,4 @@ const detail = () => {
     );
 }
 
-export default detail;
+export default Detail;
