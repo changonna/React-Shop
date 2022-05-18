@@ -9,6 +9,7 @@ import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
 
 function App() {
 
+    let [shoes, setShoes] = useState(data);
     // 1. 페이지 이동을 도와주는 useNavigate
     let navigate = useNavigate();
 
@@ -33,8 +34,9 @@ function App() {
         <Link to="/detail">상세페이지</Link>*/}
 
         <Routes>
-            <Route path="/" element={<Main/>} />
-            <Route path="/detail" element={Detail()} />
+            <Route path="/" element={<Main shoes={shoes} setShoes={setShoes} />} />
+            {/* url parameter 활용 --> :id */}
+            <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
             <Route path="*" element={ <div>없는페이지에요</div> }/> {/* path에 *를 적으면 404 페이지가 만들어진다. */}
 
             <Route path="/about" element={<About/>}>
@@ -82,18 +84,23 @@ function Location() {
     )
 }
 
-const Main = () => {
+const Main = (props) => {
     // let [modal, setModal] = useState(false);
-
-    let [shoes] = useState(data);
 
     return (
         <>
             <div className={"main-bg"}></div>
             <div className="container">
+                <Button onClick={() => {
+                    let copy = [...props.shoes];
+                    copy = copy.sort(function(a, b) {
+                        return a.title < b.title ? -1 : a.name > b.name ? 1 : 0;
+                    });
+                    props.setShoes(copy);
+                }}>가나다 순 정렬</Button>
                 <div className="row align-items-center">
                     {
-                        shoes.map(function(data, i) {
+                        props.shoes.map(function(data, i) {
                             return (
                                 <Modal key={data.id} shoe={data} i={i}></Modal>
                             )
@@ -106,13 +113,16 @@ const Main = () => {
 }
 
 const Modal = (props) => {
+
+    const shoe = props.shoe;
+
     return (
         // <Link to="/detail">
             <div className="col">
-                <img src={"https://codingapple1.github.io/shop/shoes" + (props.i+1) + ".jpg"} style={{width : "80%"}}/>
-                <h4>{props.shoe.title}</h4>
-                <p>{props.shoe.content}</p>
-                <p>{props.shoe.price}</p>
+                <img src={"https://codingapple1.github.io/shop/shoes" + (shoe.id+1) + ".jpg"} style={{width : "80%"}}/>
+                <h4>{shoe.title}</h4>
+                <p>{shoe.content}</p>
+                <p>{shoe.price}</p>
             </div>
         // </Link>
     );
