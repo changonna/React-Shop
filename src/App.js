@@ -2,10 +2,10 @@ import {useState} from "react";
 import './App.css';
 import {Button, Container, Nav, Navbar} from "react-bootstrap";
 import img from './img/shoe.png';
-import data from './data.js';
+import data from './Data.js';
 import Detail from './pages/Detail';
 import {Event, One, Two} from './pages/Event';
-import { Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom'
+import { Routes, Route, Switch, Link, useNavigate, Outlet} from 'react-router-dom'
 
 function App() {
 
@@ -34,7 +34,7 @@ function App() {
         <Link to="/detail">상세페이지</Link>*/}
 
         <Routes>
-            <Route path="/" element={<Main shoes={shoes} setShoes={setShoes} />} />
+            <Route exact path="/" element={<Main shoes={shoes} setShoes={setShoes} />} />
             {/* url parameter 활용 --> :id */}
             <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
             <Route path="*" element={ <div>없는페이지에요</div> }/> {/* path에 *를 적으면 404 페이지가 만들어진다. */}
@@ -117,14 +117,14 @@ const Modal = (props) => {
     const shoe = props.shoe;
 
     return (
-        // <Link to="/detail">
+        <Link to = {`/detail/${shoe.id}`}>
             <div className="col">
                 <img src={"https://codingapple1.github.io/shop/shoes" + (shoe.id+1) + ".jpg"} style={{width : "80%"}}/>
                 <h4>{shoe.title}</h4>
                 <p>{shoe.content}</p>
                 <p>{shoe.price}</p>
             </div>
-        // </Link>
+        </Link>
     );
 }
 
