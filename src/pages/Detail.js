@@ -18,8 +18,11 @@ const Detail = (props) => {
 
 
     /* TODO
+        1. styled-components 사용
+        2. props 이용하여 컴포넌트 재활용
     // *   1. /detail/??로 들어오면 404 page로
-    // *   2. data의 id값으로 이동하기. */
+    // *   2. data의 id값으로 이동하기.
+    */
 
     return (
         <div className="container">
