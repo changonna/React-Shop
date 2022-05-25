@@ -6,10 +6,6 @@ let Btn = styled.button`
     color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
     padding : 10px;
 `
-// 기존 스타일 복사가능.
-let NewBtn = styled.button(Btn)`
-    // 커스터마이징 가능
-`
 
 const Detail = (props) => {
 
