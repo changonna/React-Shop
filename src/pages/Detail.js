@@ -1,4 +1,15 @@
 import { useParams } from "react-router-dom";
+import styled from 'styled-components'
+
+let Btn = styled.button`
+    background : ${ props => props.bg };    // bg라는 props를 사용할 수 있습니다. (props로 컴포넌트 재활용)
+    color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
+    padding : 10px;
+`
+// 기존 스타일 복사가능.
+let NewBtn = styled.button(Btn)`
+    // 커스터마이징 가능
+`
 
 const Detail = (props) => {
 
@@ -26,6 +37,8 @@ const Detail = (props) => {
 
     return (
         <div className="container">
+            <Btn bg="yellow">노란색버튼</Btn>
+            <Btn bg="blue">파란색버튼</Btn>
             <div className="row">
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes" + (Number(shoe.id)+1) + ".jpg"} width="100%" />
