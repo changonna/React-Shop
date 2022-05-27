@@ -18,13 +18,12 @@ const Detail = (props) => {
         for(let i=0; i<1000; i++) {
             console.log(1);
         }
+        setTimeout(() => {
+            setAlert(false);
+        }, 2000);
     });
 
     let [alert, setAlert] = useState(true);
-
-    setTimeout(() => {
-        setAlert(false);
-    }, 2000);
 
     let [count, setCount] = useState(0);
 
@@ -49,7 +48,9 @@ const Detail = (props) => {
 
     return (
         <div className="container">
-            <DivAlert alert={alert}/>
+            {
+                alert ? <DivAlert/> : null
+            }
             {count}
             <Button onClick={() => { setCount(count+1) }}>버튼</Button>
             <Btn bg="yellow">노란색버튼</Btn>
@@ -69,10 +70,7 @@ const Detail = (props) => {
     );
 }
 
-let DivAlert = (alert) => {
-    if(!alert) {
-        return 0;
-    }
+let DivAlert = () => {
     return (
         <div className="alert alert-warning">
             2초이내 구매시 할인
