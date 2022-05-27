@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components'
+import {Button} from "react-bootstrap";
 
 let Btn = styled.button`
     background : ${ props => props.bg };    // bg라는 props를 사용할 수 있습니다. (props로 컴포넌트 재활용)
@@ -8,6 +10,23 @@ let Btn = styled.button`
 `
 
 const Detail = (props) => {
+
+    // mount, update시 코드 실행해주는 useEffect
+    // useEffect 안에 있는 코드는 html 렌더링 후에 동작한다.
+    useEffect(()=> {
+        // console.log('안녕');
+        for(let i=0; i<1000; i++) {
+            console.log(1);
+        }
+    });
+
+    let [alert, setAlert] = useState(true);
+
+    setTimeout(() => {
+        setAlert(false);
+    }, 2000);
+
+    let [count, setCount] = useState(0);
 
     // :id 자리에 적은 값을 가져온다.
     let {id} = useParams();
@@ -25,14 +44,14 @@ const Detail = (props) => {
 
 
     /* TODO
-        1. styled-components 사용
-        2. props 이용하여 컴포넌트 재활용
     // *   1. /detail/??로 들어오면 404 page로
-    // *   2. data의 id값으로 이동하기.
     */
 
     return (
         <div className="container">
+            <DivAlert alert={alert}/>
+            {count}
+            <Button onClick={() => { setCount(count+1) }}>버튼</Button>
             <Btn bg="yellow">노란색버튼</Btn>
             <Btn bg="blue">파란색버튼</Btn>
             <div className="row">
@@ -46,6 +65,17 @@ const Detail = (props) => {
                     <button className="btn btn-danger">주문하기</button>
                 </div>
             </div>
+        </div>
+    );
+}
+
+let DivAlert = (alert) => {
+    if(!alert) {
+        return 0;
+    }
+    return (
+        <div className="alert alert-warning">
+            2초이내 구매시 할인
         </div>
     );
 }
