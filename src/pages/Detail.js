@@ -16,12 +16,20 @@ const Detail = (props) => {
     useEffect(()=> {
         // console.log('안녕');
         for(let i=0; i<1000; i++) {
-            console.log(1);
+            // console.log(1);
         }
-        setTimeout(() => {
+        let timer = setTimeout(() => {
             setAlert(false);
         }, 2000);
-    });
+
+        // [clean up function]은 mount시 실행안됨. unmount시 실행됨.
+        // return() : useEffect 동작 전에 실행된다.
+        return () => {
+            // ex) 기존 타이머 제거, 기존 데이터 요청을 제거
+            clearTimeout(timer);    // 타이머 제거 함수
+        }
+    }, []);    // 빈[]를 써넣으면 : 처음 mount에만 실행됨
+    // }, [alert]);    // deps: alert이 변경될 때마다 실행되게
 
     let [alert, setAlert] = useState(true);
 
